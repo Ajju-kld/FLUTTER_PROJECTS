@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:vertex/pages/Landing_page/landing_page.dart';
+import 'package:vertex/pages/Login/Login.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,6 +26,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home:  Landing_Page(),
+      routes: {
+        'login':(context) {return Login();
+      }}
     );
   }
 }
