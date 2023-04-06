@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vertex/pages/Login/Login.dart';
+import 'package:vertex/pages/Sign_up/Sign_up.dart';
 import '../COLORS.dart';
 
 import '../Login/Login.dart';
@@ -34,9 +35,11 @@ final FocusNotifier focusNotifier = FocusNotifier();
                   padding: const EdgeInsets.fromLTRB(0,10, 0,20),
                   child: Image.asset('assets/images/vertex_logo.png',width: 300,height: 350,),
                 ),
-                Image.asset(
-                  "assets/images/VERTEX.png",
-                  width: 250,
+                Hero(tag: 'vertex',
+                  child: Image.asset(
+                    "assets/images/VERTEX.png",
+                    width: 250,
+                  ),
                 )
               ],
             ),
@@ -81,7 +84,12 @@ final FocusNotifier focusNotifier = FocusNotifier();
                       width: 310,
                       height: 60,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                            Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (ctx) {
+                            return Sign_up();
+                          }));
+                        },
                         style: ButtonStyle(
                           
                               
