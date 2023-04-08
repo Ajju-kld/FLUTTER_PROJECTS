@@ -1,11 +1,17 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:vertex/pages/Landing_page/landing_page.dart';
 import 'package:vertex/pages/Login/Login.dart';
 import 'package:vertex/pages/Sign_up/Sign_up.dart';
 
-void main() {
+import 'firebase_options.dart';
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+await Firebase.initializeApp(
+  options: DefaultFirebaseOptions.currentPlatform,
+);
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
