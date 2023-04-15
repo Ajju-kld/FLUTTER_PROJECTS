@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -6,12 +7,11 @@ import 'package:vertex/pages/Login/Login.dart';
 import '../COLORS.dart';
 import 'Components.dart';
 
-
-
+import 'package:firebase_auth/firebase_auth.dart';
 
 Route _createRoute() {
   return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) => const Login(),
+    pageBuilder: (context, animation, secondaryAnimation) => Login(),
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       var begin = Offset(0.0, -1.0);
       var end = Offset.zero;
@@ -27,7 +27,6 @@ Route _createRoute() {
   );
 }
 
-
 class Sign_up extends StatefulWidget {
   const Sign_up({super.key});
 
@@ -37,6 +36,94 @@ class Sign_up extends StatefulWidget {
 
 class _Sign_upState extends State<Sign_up> {
   bool isChecked = false;
+  final email = TextEditingController();
+  final name = TextEditingController();
+  final password = TextEditingController();
+  final confirm_password = TextEditingController();
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    email.dispose();
+    name.dispose();
+    password.dispose();
+    confirm_password.dispose();
+    super.dispose();
+  }
+
+  Future<void> signUpWithEmail() async {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: email.text, password: password.text);
+
+      Navigator.pop(context);
+      Navigator.pop(context);
+    } on FirebaseAuthException catch (e) {
+      Navigator.pop(context);
+      if (e.code == 'email-already-in-use') {
+        already_registered();
+      } else if (e.code == 'weak-password') {
+        weak_password();
+      } else if (e.code == 'invalid-email') {
+        invalid_email();
+      }
+    }
+  }
+
+  void already_registered() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const AlertDialog(
+            backgroundColor: Colors.black45,
+            title: Center(
+                child: Text(
+              'You have already register account in this email',
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            )),
+          );
+        });
+  }
+
+  void weak_password() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const AlertDialog(
+            backgroundColor: Colors.black45,
+            title: Center(
+                child: Text(
+              'Your password is weak enter strong one',
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            )),
+          );
+        });
+  }
+
+  void invalid_email() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const AlertDialog(
+            backgroundColor: Colors.black45,
+            title: Center(
+                child: Text(
+              'Invalid Email',
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            )),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,16 +154,33 @@ class _Sign_upState extends State<Sign_up> {
             ),
             Padding(
                 padding: const EdgeInsets.fromLTRB(0, 15, 0, 25),
-                child: text_field()),
+                child: text_field(controller: name)),
             Padding(
                 padding: const EdgeInsets.fromLTRB(0, 15, 0, 25),
-                child: text_field(hint: 'Enter you email',icon: const Icon(Icons.email_outlined,color: Colors.white,))),
+                child: text_field(
+                    hint: 'Enter you email',
+                    icon: const Icon(
+                      Icons.email_outlined,
+                      color: Colors.white,
+                    ),
+                    controller: email)),
             Padding(
                 padding: const EdgeInsets.fromLTRB(0, 15, 0, 25),
-                child: text_field(hint: 'Password',icon: const Icon(Icons.key_outlined,color: Colors.white),obstrucct: true)),
+                child: text_field(
+                    hint: 'Password',
+                    icon: const Icon(Icons.key_outlined, color: Colors.white),
+                    obstrucct: true,
+                    controller: password)),
             Padding(
                 padding: const EdgeInsets.fromLTRB(0, 15, 0, 25),
-                child: text_field(hint: 'Confirm Password',icon: const Icon(Icons.key_outlined,color: Colors.white,),obstrucct: true)),
+                child: text_field(
+                    hint: 'Confirm Password',
+                    icon: const Icon(
+                      Icons.key_outlined,
+                      color: Colors.white,
+                    ),
+                    obstrucct: true,
+                    controller: password)),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 0, 25, 0),
               child: Row(
@@ -108,18 +212,22 @@ class _Sign_upState extends State<Sign_up> {
                   ),
                   RichText(
                       text: const TextSpan(
-                          style: TextStyle(fontSize: 12),
+                          style: TextStyle(fontSize: 12, color: Colors.white),
                           text: 'By creating  an account, you agree to our\n',
                           children: [
                         TextSpan(
                             text: 'Conditons of Use',
                             style: TextStyle(
-                                decoration: TextDecoration.underline)),
-                        TextSpan(text: ' and '),
+                                decoration: TextDecoration.underline,
+                                color: Colors.white)),
+                        TextSpan(
+                            text: ' and ',
+                            style: TextStyle(color: Colors.white)),
                         TextSpan(
                             text: 'Privacy Notice',
-                            style:
-                                TextStyle(decoration: TextDecoration.underline))
+                            style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                color: Colors.white))
                       ]))
                 ],
               ),
@@ -127,9 +235,9 @@ class _Sign_upState extends State<Sign_up> {
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
               child: Hero(
-                tag: 'sign_up',
-                child: btn_(),
-              ),
+                  tag: 'sign_up',
+                  child: btn_(
+                      onPressed: () => signUpWithEmail(), check: isChecked)),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 45, 0, 0),
@@ -141,25 +249,19 @@ class _Sign_upState extends State<Sign_up> {
                 ),
               ),
             ),
-        const  Padding(
-            padding:  EdgeInsets.fromLTRB(0, 15, 0, 0),
-            child:  Text(
+            const Padding(
+              padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
+              child: Text(
                 'Already have an account ? ',
                 style: TextStyle(color: Colors.white, fontSize: 17),
               ),
-          ),
-           TextButton(
+            ),
+            TextButton(
               onPressed: () {
-
-Navigator.pop(context);
-              Navigator.of(context).push(_createRoute());
-
-
-
-
-                
+                Navigator.pop(context);
+                Navigator.of(context).push(_createRoute());
               },
-              child:const Text(
+              child: const Text(
                 'login',
                 style: TextStyle(
                     color: Colors.white,

@@ -1,10 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:vertex/pages/Landing_page/landing_page.dart';
 import 'package:vertex/pages/Login/Login.dart';
 import 'package:vertex/pages/Sign_up/Sign_up.dart';
-
+import './pages/home_page/home_page.dart';
 import 'firebase_options.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,9 +33,9 @@ class MyApp extends StatelessWidget {
         
         primarySwatch: Colors.blue,
       ),
-      home:  Landing_Page(),
+      home: const Main_page(),
       routes: {
-        'login':(context) {return const Login();
+        'login':(context) {return Login();
       }
       ,
         'sign_up':(context){
@@ -42,6 +43,29 @@ class MyApp extends StatelessWidget {
         
       },
       }
+    );
+  }
+}
+
+class Main_page extends StatelessWidget {
+  const Main_page({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return  Scaffold(
+body: StreamBuilder<User?>(
+  stream: FirebaseAuth.instance.authStateChanges(),
+  builder: (context, snapshot) {
+    if (snapshot.hasData) {
+      return const HomePage();
+    }else{
+return Landing_Page();
+
+
+    }
+  },
+),
+
     );
   }
 }
