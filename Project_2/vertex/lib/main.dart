@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:vertex/pages/Landing_page/landing_page.dart';
 import 'package:vertex/pages/Login/Login.dart';
 import 'package:vertex/pages/Sign_up/Sign_up.dart';
+import 'package:vertex/pages/home_page/home.dart';
 import './pages/home_page/home_page.dart';
 import 'firebase_options.dart';
 Future<void> main() async {
@@ -57,7 +58,7 @@ body: StreamBuilder<User?>(
   stream: FirebaseAuth.instance.authStateChanges(),
   builder: (context, snapshot) {
     if (snapshot.hasData) {
-      return const HomePage();
+      return const Homepage();
     }else{
 return Landing_Page();
 

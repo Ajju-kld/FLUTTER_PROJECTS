@@ -133,7 +133,7 @@ class _Sign_upState extends State<Sign_up> {
         child: Column(
           children: [
             const Padding(
-              padding: EdgeInsets.fromLTRB(0, 40, 0, 20),
+              padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
               child: Text(
                 'Hey There ',
                 style: TextStyle(
@@ -143,7 +143,7 @@ class _Sign_upState extends State<Sign_up> {
               ),
             ),
             const Padding(
-              padding: EdgeInsets.fromLTRB(0, 20, 0, 30),
+              padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
               child: Text(
                 'Create an account',
                 style: TextStyle(
@@ -154,10 +154,10 @@ class _Sign_upState extends State<Sign_up> {
             ),
             Padding(
                 padding: const EdgeInsets.fromLTRB(0, 15, 0, 25),
-                child: text_field(controller: name)),
+                child: textField(controller: name)),
             Padding(
                 padding: const EdgeInsets.fromLTRB(0, 15, 0, 25),
-                child: text_field(
+                child: textField(
                     hint: 'Enter you email',
                     icon: const Icon(
                       Icons.email_outlined,
@@ -166,21 +166,21 @@ class _Sign_upState extends State<Sign_up> {
                     controller: email)),
             Padding(
                 padding: const EdgeInsets.fromLTRB(0, 15, 0, 25),
-                child: text_field(
+                child: textField(
                     hint: 'Password',
                     icon: const Icon(Icons.key_outlined, color: Colors.white),
                     obstrucct: true,
                     controller: password)),
             Padding(
                 padding: const EdgeInsets.fromLTRB(0, 15, 0, 25),
-                child: text_field(
+                child: textField(
                     hint: 'Confirm Password',
                     icon: const Icon(
                       Icons.key_outlined,
                       color: Colors.white,
                     ),
                     obstrucct: true,
-                    controller: password)),
+                    controller: confirm_password)),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 0, 25, 0),
               child: Row(
@@ -242,7 +242,7 @@ class _Sign_upState extends State<Sign_up> {
                       check: isChecked)),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(0, 45, 0, 0),
+              padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
               child: Hero(
                 tag: 'vertex',
                 child: Image.asset(

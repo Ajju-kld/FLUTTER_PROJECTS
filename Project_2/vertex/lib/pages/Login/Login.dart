@@ -1,23 +1,16 @@
+// ignore_for_file: file_names
+
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:vertex/pages/COLORS.dart';
 import 'package:vertex/component/Components.dart';
 import 'package:vertex/pages/Sign_up/Sign_up.dart';
-
-import '../../component/Components.dart';
-import '../home_page/home_page.dart';
-
-
 
 Route _createRoute() {
   return PageRouteBuilder(
     pageBuilder: (context, animation, secondaryAnimation) => const Sign_up(),
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      var begin = Offset(0.0, 1.0);
+      var begin = const Offset(0.0, 1.0);
       var end = Offset.zero;
       var curve = Curves.ease;
 
@@ -31,33 +24,19 @@ Route _createRoute() {
   );
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 class Login extends StatefulWidget {
-   Login({super.key});
+  const Login({super.key});
 
   @override
   State<Login> createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
-final email=TextEditingController();
+  final email = TextEditingController();
 
-final password=TextEditingController();
-final focus=FocusNode();
-@override
+  final password = TextEditingController();
+  final focus = FocusNode();
+  @override
   void dispose() {
     // TODO: implement dispose
     email.dispose();
@@ -80,32 +59,35 @@ final focus=FocusNode();
         email: email.text,
         password: password.text,
       );
-Navigator.pop(context);
-Navigator.pop(context);
+      Navigator.pop(context);
+      Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
       Navigator.pop(context);
       if (e.code == 'user-not-found') {
-        wrong_email_msg();
+        wrongEmail();
       } else if (e.code == 'wrong-password') {
-        wrong_password();
+        wrongPassword();
       }
     }
   }
 
-
-void wrong_email_msg() {
-
-showDialog(
+  void wrongEmail() {
+    showDialog(
         context: context,
         builder: (context) {
-          return const AlertDialog(backgroundColor: Colors.black45,title:Center(child: Text('You have not register account in this email',style: TextStyle(color: Colors.white,fontSize: 20),)),);
-
+          return const AlertDialog(
+            backgroundColor: Colors.black45,
+            title: Center(
+                child: Text(
+              'You have not register account in this email',
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            )),
+          );
         });
+  }
 
-}
-void wrong_password(){
-
-showDialog(
+  void wrongPassword() {
+    showDialog(
         context: context,
         builder: (context) {
           return const AlertDialog(
@@ -117,9 +99,7 @@ showDialog(
             )),
           );
         });
-
-}
-
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -134,9 +114,9 @@ showDialog(
             'login',
             style: TextStyle(color: Colors.white),
           ),
-          backgroundColor:const Color.fromRGBO(14, 15, 26, 1),
+          backgroundColor: const Color.fromRGBO(14, 15, 26, 1),
         ),
-        backgroundColor:const Color.fromRGBO(14, 15, 26, 1),
+        backgroundColor: const Color.fromRGBO(14, 15, 26, 1),
         body: SafeArea(
           child: SingleChildScrollView(
             child: Column(
@@ -152,37 +132,51 @@ showDialog(
                 ), // login picture padding
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
-                  child:text_field(hint: 'Enter the email',controller: email,icon:const Icon(Icons.email_outlined,color: Colors.white,)) ,
+                  child: textField(
+                      hint: 'Enter the email',
+                      controller: email,
+                      icon: const Icon(
+                        Icons.email_outlined,
+                        color: Colors.white,
+                      )),
                 ), // email field padding
-    
+
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-                  child: text_field(hint:'Enter the Password'),
+                  child: textField(hint: 'Enter the Password'),
                 ), // password fild padding
                 Padding(
                   padding: const EdgeInsets.fromLTRB(150, 0, 0, 0),
-                  child:txtBtn(hint:const Text('Forgotten Password ?',style:TextStyle(color: Colors.white),),onPressed: () {
-                    
-                  },),),
+                  child: txtBtn(
+                    hint: const Text(
+                      'Forgotten Password ?',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    onPressed: () {},
+                  ),
+                ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 40, 0, 3),
                   child: Hero(
                     tag: "Login_btn",
-                    child:btn_(title: 'LOGIN',onPressed: () {
-                         focus.unfocus();
+                    child: btn_(
+                      title: 'LOGIN',
+                      onPressed: () {
+                        focus.unfocus();
                         login();
-                    },),
+                      },
+                    ),
                   ),
-                ), //button padding
-                TextButton(
+                ),
+                txtBtn(
                     onPressed: () => {
-                    Navigator.pop(context),
-                Navigator.of(context).push(_createRoute())
-                    },
-                    child: Text(
+                          Navigator.pop(context),
+                          Navigator.of(context).push(_createRoute())
+                        },
+                    hint: const Text(
                       "New User? Register",
                       style: TextStyle(color: Colors.white),
-                    ))
+                    )), //button padding
               ],
             ),
           ),
@@ -191,4 +185,3 @@ showDialog(
     );
   }
 }
-
