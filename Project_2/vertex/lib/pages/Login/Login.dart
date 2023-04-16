@@ -5,8 +5,10 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:vertex/pages/COLORS.dart';
+import 'package:vertex/component/Components.dart';
 import 'package:vertex/pages/Sign_up/Sign_up.dart';
 
+import '../../component/Components.dart';
 import '../home_page/home_page.dart';
 
 
@@ -150,105 +152,26 @@ showDialog(
                 ), // login picture padding
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                     const Icon(
-                        Icons.email,
-                        color: Colors.white,
-                      ),
-                      const SizedBox(width: 20),
-                      SizedBox(
-                        height: 60,
-                        width: 300,
-                        child: TextFormField(controller: email,focusNode:FocusNode(),
-                          style: const TextStyle(color: Colors.white),
-                          decoration: InputDecoration(
-                              hintText: 'Enter your email',
-                              fillColor: const Color.fromARGB(255, 0, 0, 0),
-                              filled: true,
-                              hintStyle:
-                                  const TextStyle(color: Colors.white, fontSize: 15),
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(9))),
-                        ),
-                      ),
-                    ],
-                  ),
+                  child:text_field(hint: 'Enter the email',controller: email,icon:const Icon(Icons.email_outlined,color: Colors.white,)) ,
                 ), // email field padding
     
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        Icons.key_rounded,
-                        color: Colors.white,
-                      ),
-                      const SizedBox(width: 20),
-                      SizedBox(
-                        height: 60,
-                        width: 300,
-                        child: TextFormField(
-                          controller: password,
-                          obscureText: true,
-                          style:const TextStyle(color: Colors.white),
-                          decoration: InputDecoration(
-                              hintText: 'Password',
-                              fillColor: const Color.fromARGB(255, 0, 0, 0),
-                              filled: true,
-                              hintStyle:
-                        const          TextStyle(color: Colors.white, fontSize: 15),
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(9))),
-                        ),
-                      ),
-                    ],
-                  ),
+                  child: text_field(hint:'Enter the Password'),
                 ), // password fild padding
                 Padding(
                   padding: const EdgeInsets.fromLTRB(150, 0, 0, 0),
-                  child: TextButton(
-                      style: ButtonStyle(
-                          overlayColor: MaterialStateProperty.all<Color>(
-                              Color.fromRGBO(14, 15, 26, 1))),
-                      onPressed: () {},
-                      child: const Text(
-                        'Forgotten Password ?',
-                        style: TextStyle(color: Colors.white),
-                      )),
-                ),
+                  child:txtBtn(hint:const Text('Forgotten Password ?',style:TextStyle(color: Colors.white),),onPressed: () {
+                    
+                  },),),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 40, 0, 3),
                   child: Hero(
                     tag: "Login_btn",
-                    child: SizedBox(
-                      width: 270,
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          focus.unfocus();
-                      login();
-                        },
-                        style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                                Color.fromARGB(255, 0, 162, 143)),
-                            overlayColor: MaterialStateProperty.all<Color>(
-                                Color.fromARGB(211, 0, 0, 0)),
-                            shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(11),
-                                    side: BorderSide(
-                                        width: 3,
-                                        color:
-                                            Color.fromARGB(136, 0, 162, 143))))),
-                        child: Text(
-                          "LOGIN",
-                          style: TextStyle(color: Colors.white, fontSize: 20),
-                        ),
-                      ),
-                    ),
+                    child:btn_(title: 'LOGIN',onPressed: () {
+                         focus.unfocus();
+                        login();
+                    },),
                   ),
                 ), //button padding
                 TextButton(

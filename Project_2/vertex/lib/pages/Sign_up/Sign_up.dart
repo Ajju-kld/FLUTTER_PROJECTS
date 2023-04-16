@@ -5,7 +5,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:vertex/pages/Login/Login.dart';
 
 import '../COLORS.dart';
-import 'Components.dart';
+import '../../component/Components.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -13,7 +13,7 @@ Route _createRoute() {
   return PageRouteBuilder(
     pageBuilder: (context, animation, secondaryAnimation) => Login(),
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      var begin = Offset(0.0, -1.0);
+      var begin = const Offset(0.0, -1.0);
       var end = Offset.zero;
       var curve = Curves.ease;
 
@@ -70,16 +70,16 @@ class _Sign_upState extends State<Sign_up> {
     } on FirebaseAuthException catch (e) {
       Navigator.pop(context);
       if (e.code == 'email-already-in-use') {
-        already_registered();
+        alreadyRegistered();
       } else if (e.code == 'weak-password') {
-        weak_password();
+        weakPassword();
       } else if (e.code == 'invalid-email') {
-        invalid_email();
+        invalidEmail();
       }
     }
   }
 
-  void already_registered() {
+  void alreadyRegistered() {
     showDialog(
         context: context,
         builder: (context) {
@@ -94,7 +94,7 @@ class _Sign_upState extends State<Sign_up> {
         });
   }
 
-  void weak_password() {
+  void weakPassword() {
     showDialog(
         context: context,
         builder: (context) {
@@ -109,7 +109,7 @@ class _Sign_upState extends State<Sign_up> {
         });
   }
 
-  void invalid_email() {
+  void invalidEmail() {
     showDialog(
         context: context,
         builder: (context) {
@@ -196,13 +196,13 @@ class _Sign_upState extends State<Sign_up> {
                         });
                       },
                       overlayColor: MaterialStateProperty.all<Color>(
-                          Color.fromARGB(255, 255, 255, 255)),
-                      checkColor: Color.fromARGB(255, 0, 0, 0),
-                      activeColor: Color.fromARGB(255, 0, 0, 0),
+                        const  Color.fromARGB(255, 255, 255, 255)),
+                      checkColor:const Color.fromARGB(255, 0, 0, 0),
+                      activeColor:const Color.fromARGB(255, 0, 0, 0),
                       fillColor: MaterialStateProperty.all<Color>(
-                          Color.fromARGB(242, 255, 255, 255)),
+                       const   Color.fromARGB(242, 255, 255, 255)),
                       shape: RoundedRectangleBorder(
-                        side: BorderSide(color: Colors.blue, width: 2.0),
+                        side:const BorderSide(color: Colors.blue, width: 2.0),
                         borderRadius: BorderRadius.circular(5.0),
                       ),
                     ),
@@ -237,7 +237,9 @@ class _Sign_upState extends State<Sign_up> {
               child: Hero(
                   tag: 'sign_up',
                   child: btn_(
-                      onPressed: () => signUpWithEmail(), check: isChecked)),
+                      title: 'SIGN_UP',
+                      onPressed: () => signUpWithEmail(),
+                      check: isChecked)),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 45, 0, 0),
@@ -256,23 +258,19 @@ class _Sign_upState extends State<Sign_up> {
                 style: TextStyle(color: Colors.white, fontSize: 17),
               ),
             ),
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-                Navigator.of(context).push(_createRoute());
-              },
-              child: const Text(
-                'login',
-                style: TextStyle(
-                    color: Colors.white,
-                    decoration: TextDecoration.underline,
-                    fontSize: 20,
-                    letterSpacing: 1.5),
-              ),
-              style: ButtonStyle(
-                  overlayColor:
-                      MaterialStateProperty.all<Color>(backgroundColor)),
-            )
+            txtBtn(
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.of(context).push(_createRoute());
+                },
+                hint: const Text(
+                  'login',
+                  style: TextStyle(
+                      color: Colors.white,
+                      decoration: TextDecoration.underline,
+                      fontSize: 20,
+                      letterSpacing: 1.5),
+                )),
           ],
         ),
       )),
