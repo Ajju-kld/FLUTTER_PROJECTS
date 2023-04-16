@@ -143,7 +143,7 @@ class _LoginState extends State<Login> {
 
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-                  child: textField(hint: 'Enter the Password'),
+                  child: textField(hint: 'Enter the Password',controller: password,icon: const Icon(Icons.key_outlined,color: Colors.white,)),
                 ), // password fild padding
                 Padding(
                   padding: const EdgeInsets.fromLTRB(150, 0, 0, 0),

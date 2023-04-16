@@ -28,11 +28,18 @@ class _HomepageState extends State<Homepage> {
         actions: [Padding(
           padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
           child: Transform.rotate(
-            angle: 201/20,child: IconButton(onPressed: () {}, icon:const Icon(Icons.send,color: Colors.white,),)),
+            angle: 201/20,child: IconButton(onPressed: () {
+                    Navigator.of(context).pushNamed('chat');
+                  }, icon:const Icon(Icons.send,color: Colors.white,),)),
+            
         ),
        Padding(
          padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
-         child: CircleAvatar(child: Image.asset('assets/images/vertex_logo.png')),
+         child:GestureDetector(
+
+          onTap: () {
+               Navigator.of(context).pushNamed('profile');
+         },child: CircleAvatar(child: Image.asset('assets/images/vertex_logo.png'))),
        )],
         title: const Text(
           'Vertex',
@@ -77,5 +84,21 @@ class _HomepageState extends State<Homepage> {
           ]),
       body: _children[_currentIndex],
     );
+  }
+}
+
+
+class Profile extends StatefulWidget {
+  const Profile({super.key});
+
+  @override
+  State<Profile> createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(backgroundColor: backgroundColor,
+    body: Center(child:Text('profile',style:TextStyle(color: Colors.white),)),);
   }
 }

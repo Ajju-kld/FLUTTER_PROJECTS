@@ -8,6 +8,7 @@ import 'package:vertex/pages/Sign_up/Sign_up.dart';
 import 'package:vertex/pages/home_page/home.dart';
 import './pages/home_page/home_page.dart';
 import 'firebase_options.dart';
+import 'pages/inner_pages/Chat.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -36,14 +37,17 @@ class MyApp extends StatelessWidget {
       ),
       home: const Main_page(),
       routes: {
-        'login':(context) {return Login();
+        'login':(context) {return const Login();
       }
       ,
         'sign_up':(context){
           return const Sign_up();
         
       },
+      'profile':(context) => const Profile()
+      ,'chat':(context) => const Chat_Page()
       }
+      
     );
   }
 }
