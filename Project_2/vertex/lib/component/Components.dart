@@ -7,7 +7,9 @@ Row textField(
     Icon icon = const Icon(
       Icons.person_3_outlined,
       color: Colors.white,
+      
     ),
+  String? Function(String?)? validator,
     TextEditingController? controller}) => Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
@@ -16,9 +18,11 @@ Row textField(
         width: 300,
         child: TextFormField(
           cursorHeight: 25,
+          
           obscuringCharacter: '*',
           controller: controller,
           obscureText: obstrucct,
+          validator:validator,
           style: const TextStyle(
               color: Colors.white, height: 25 / 20, fontSize: 20),
           decoration: InputDecoration(

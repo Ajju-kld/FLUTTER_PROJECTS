@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../COLORS.dart';
@@ -96,9 +97,22 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+    final user = FirebaseAuth.instance.currentUser!;
+  void logout() {
+    FirebaseAuth.instance.signOut();
+  }
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(backgroundColor: backgroundColor,
-    body: Center(child:Text('profile',style:TextStyle(color: Colors.white),)),);
+    return  Scaffold(backgroundColor: backgroundColor,
+    body: Center(child:Column(mainAxisAlignment: MainAxisAlignment.center,
+      children:  [
+       const Text('profile',style:TextStyle(color: Colors.white),),
+          ElevatedButton(
+              onPressed: () {
+                logout();
+                Navigator.of(context).pop();
+              },
+              child: const Text('logout'))     ],
+    )),);
   }
 }
