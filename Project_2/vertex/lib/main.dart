@@ -6,6 +6,8 @@ import 'package:vertex/pages/Landing_page/landing_page.dart';
 import 'package:vertex/pages/Login/Login.dart';
 import 'package:vertex/pages/Sign_up/Sign_up.dart';
 import 'package:vertex/pages/home_page/home.dart';
+import 'package:vertex/pages/inner_pages/Chat_interface.dart';
+import 'package:vertex/pages/inner_pages/profile.dart';
 import './pages/home_page/home_page.dart';
 import 'firebase_options.dart';
 import 'pages/inner_pages/Chat.dart';
@@ -45,7 +47,8 @@ class MyApp extends StatelessWidget {
         
       },
       'profile':(context) => const Profile()
-      ,'chat':(context) => const Chat_Page()
+      ,'chat':(context) => const Chat_Page(),
+      'chat_screen':(context)=> const Chat_Screen()
       }
       
     );

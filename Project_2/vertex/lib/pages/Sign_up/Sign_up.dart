@@ -5,7 +5,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:vertex/pages/Login/Login.dart';
 
 import '../COLORS.dart';
-import '../../component/Components.dart';
+import '../../component/component_widgets.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 

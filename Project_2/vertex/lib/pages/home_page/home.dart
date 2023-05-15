@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:vertex/component/component_widgets.dart';
 
 import '../COLORS.dart';
 import '../inner_pages/Add_post.dart';
@@ -26,30 +27,39 @@ class _HomepageState extends State<Homepage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: backgroundColor,
-        actions: [Padding(
-          padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
-          child: Transform.rotate(
-            angle: 201/20,child: IconButton(onPressed: () {
+        actions: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
+            child: Transform.rotate(
+                angle: 201 / 20,
+                child: IconButton(
+                  onPressed: () {
                     Navigator.of(context).pushNamed('chat');
-                  }, icon:const Icon(Icons.send,color: Colors.white,),)),
-            
-        ),
-       Padding(
-         padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
-         child:GestureDetector(
-
-          onTap: () {
-               Navigator.of(context).pushNamed('profile');
-         },child: CircleAvatar(child: Image.asset('assets/images/vertex_logo.png'))),
-       )],
+                  },
+                  icon: const Icon(
+                    Icons.send,
+                    color: Colors.white,
+                  ),
+                )),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
+            child: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pushNamed('profile');
+                },
+                child: CircleAvatar(
+                    child: Image.asset('assets/images/vertex_logo.png'))),
+          )
+        ],
         title: const Text(
           'Vertex',
           style: TextStyle(fontWeight: FontWeight.w800, fontSize: 30),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-          elevation: 20
-          ,backgroundColor: backgroundColor,
+          elevation: 20,
+          backgroundColor: backgroundColor,
           currentIndex: _currentIndex,
           onTap: (value) {
             setState(() {
@@ -85,34 +95,5 @@ class _HomepageState extends State<Homepage> {
           ]),
       body: _children[_currentIndex],
     );
-  }
-}
-
-
-class Profile extends StatefulWidget {
-  const Profile({super.key});
-
-  @override
-  State<Profile> createState() => _ProfileState();
-}
-
-class _ProfileState extends State<Profile> {
-    final user = FirebaseAuth.instance.currentUser!;
-  void logout() {
-    FirebaseAuth.instance.signOut();
-  }
-  @override
-  Widget build(BuildContext context) {
-    return  Scaffold(backgroundColor: backgroundColor,
-    body: Center(child:Column(mainAxisAlignment: MainAxisAlignment.center,
-      children:  [
-       const Text('profile',style:TextStyle(color: Colors.white),),
-          ElevatedButton(
-              onPressed: () {
-                logout();
-                Navigator.of(context).pop();
-              },
-              child: const Text('logout'))     ],
-    )),);
   }
 }

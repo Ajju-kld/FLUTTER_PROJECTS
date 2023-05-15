@@ -3,7 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:vertex/component/Components.dart';
+import 'package:vertex/component/component_widgets.dart';
 import 'package:vertex/pages/Sign_up/Sign_up.dart';
 
 Route _createRoute() {
