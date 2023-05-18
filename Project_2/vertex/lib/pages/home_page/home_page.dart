@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:story_view/widgets/story_view.dart';
 
-import 'package:vertex/pages/COLORS.dart';
+import 'package:vertex/pages/utils.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

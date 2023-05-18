@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vertex/pages/COLORS.dart';
+import 'package:vertex/pages/utils.dart';
 
 import 'Chat_interface.dart';
 

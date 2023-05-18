@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vertex/pages/Login/Login.dart';
 import 'package:vertex/pages/Sign_up/Sign_up.dart';
-import '../COLORS.dart';
+import '../utils.dart';
 
 import '../Login/Login.dart';
 

@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:vertex/component/component_widgets.dart';
 
-import '../COLORS.dart';
+import '../utils.dart';
 import '../inner_pages/Add_post.dart';
 import '../inner_pages/Search_page.dart';
 
@@ -44,7 +46,7 @@ class _ProfileState extends State<Profile> {
         actions: [
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.settings, color: Colors.white),
+            icon: const Icon(Icons.settings, color: Colors.white),
           )
         ],
       ),
@@ -54,86 +56,33 @@ class _ProfileState extends State<Profile> {
             Stack(
               alignment: AlignmentDirectional.topStart,
               children: [
-                Follower_Board(),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(130, 125, 0, 0),
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  child: Follower_Board(),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(136, 128, 0, 0),
                   child: isFollow
-                      ? Row(
-                          children: [
-                            TextButton(
-                                onPressed: () {},
-                                style: ButtonStyle(
-                                  elevation:
-                                      MaterialStateProperty.all<double>(0),
-                                  overlayColor:
-                                      MaterialStateProperty.all<Color>(
-                                          backgroundColor),
-                                  splashFactory: InkRipple.splashFactory,
-                                ),
-                                child: Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(4),
-                                        color: Color.fromARGB(135, 27, 24, 24)),
-                                    width: 110,
-                                    height: 32,
-                                    child: const Center(
-                                      child: Text(
-                                        'message',
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                    ))),
-                            TextButton(
-                                onPressed: () {},
-                                style: ButtonStyle(
-                                  elevation:
-                                      MaterialStateProperty.all<double>(0),
-                                  overlayColor:
-                                      MaterialStateProperty.all<Color>(
-                                          backgroundColor),
-                                  splashFactory: InkRipple.splashFactory,
-                                ),
-                                child: Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(4),
-                                        color: Color.fromARGB(135, 27, 24, 24)),
-                                    width: 110,
-                                    height: 32,
-                                    child: Center(
-                                      child: const Text(
-                                        'unfollow',
-                                        style: const TextStyle(
-                                            color: Colors.white),
-                                      ),
-                                    )))
-                          ],
-                        )
-                      : Row(
-                          children: [
-                            TextButton(
-                                onPressed: () {
-                                  setState(() {
-                                    isFollow = true;
-                                  });
-                                },
-                                child: Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(4),
-                                        color: secondary),
-                                    width: 236,
-                                    height: 30,
-                                    child: Center(
-                                        child: Text(
-                                      'Follow',
-                                      style:
-                                          const TextStyle(color: Colors.white),
-                                    )))),
-                          ],
+                      ? messageUnfollow(
+                          message: () {},
+                          unfollow: () {
+                            print('clicked');
+                            setState(() {
+                              isFollow = false;
+                            });
+                          })
+                      : followBtn(
+                          follow: () {
+                            setState(() {
+                              isFollow = true;
+                            });
+                          },
                         ),
                 ),
               ],
             ),
             const Padding(
-              padding: const EdgeInsets.fromLTRB(0, 20, 320, 20),
+              padding:  EdgeInsets.fromLTRB(0, 20,340, 20),
               child: Text(
                 'Bio',
                 style: TextStyle(
@@ -147,16 +96,18 @@ class _ProfileState extends State<Profile> {
               width: 400,
               height: 240,
               decoration: BoxDecoration(
-                color: Color.fromARGB(172, 6, 8, 14),
+                color: const Color.fromARGB(172, 6, 8, 14),
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(color: secondary, width: 2),
               ),
-              child: Scrollbar(
-                child: SingleChildScrollView(
-                  child: Container(
-                      // Add your content inside this container
-                      ),
+              child: Markdown(
+                data: markdown_Data,
+                styleSheet: MarkdownStyleSheet(
+                  p: const TextStyle(color: Colors.white), // Set text color to white
                 ),
+                imageBuilder: (Uri uri, String? title, String? alt) {
+                  return SvgPicture.network(uri.toString(), theme:const  SvgTheme(currentColor:Colors.white),placeholderBuilder: (context)=>const CircularProgressIndicator(),);
+                },
               ),
             ),
             const Padding(
@@ -170,70 +121,21 @@ class _ProfileState extends State<Profile> {
               ),
             ),
             const Padding(
-              padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 8),
               child: Divider(
                 indent: 20,
                 color: Colors.white,
                 endIndent: 20,
               ),
             ),
-            GridView.count(
-              crossAxisCount: 3, // Number of columns in the grid
-              crossAxisSpacing: 1, // Spacing between columns
-              mainAxisSpacing: 1, // Spacing between rows
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              children: [
-                Container(
-                  width: 30,
-                  height: 40,
-                  color: Colors.white,
-                ),
-                Container(
-                  width: 50,
-                  height: 70,
-                  color: Colors.white,
-                ),
-                Container(
-                  width: 50,
-                  height: 70,
-                  color: Colors.white,
-                ),
-                Container(
-                  width: 50,
-                  height: 70,
-                  color: Colors.white,
-                ),
-                Container(
-                  width: 50,
-                  height: 70,
-                  color: Colors.white,
-                ),
-                Container(
-                  width: 50,
-                  height: 70,
-                  color: Colors.white,
-                ),
-                Container(
-                  width: 50,
-                  height: 70,
-                  color: Colors.white,
-                ),
-                Container(
-                  width: 50,
-                  height: 70,
-                  color: Colors.white,
-                ),
-                Container(
-                  width: 50,
-                  height: 70,
-                  color: Colors.white,
-                ),
-                // Add more widgets as needed
-              ],
-            ),
-          ],
-        ),
+  GridView.count(
+            crossAxisCount: 3, // Number of columns in the grid
+            crossAxisSpacing: 2, // Spacing between columns
+            mainAxisSpacing: 2, // Spacing between rows
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            children:List.generate(10, (index) => Container(width: 45,height: 60,color: Colors.white,)),
+          )  ] ),
       ),
     );
   }

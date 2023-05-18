@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 
-import '../pages/COLORS.dart';
+import '../pages/utils.dart';
 
 Row textField(
         {bool obstrucct = false,
@@ -78,36 +78,45 @@ TextButton txtBtn({Text? hint, void Function()? onPressed}) {
       child: hint!);
 }
 
-class Follower_Board extends StatefulWidget {
-  
+class Follower_Board extends StatelessWidget {
+  Follower_Board({
+    Key? key,
+  }) : super(key: key);
 
-
-  Follower_Board({Key? key,})
-      : super(key: key);
-
-  @override
-  State<Follower_Board> createState() => _Follower_BoardState();
-}
-
-class _Follower_BoardState extends State<Follower_Board> {
   var text_style = const TextStyle(
       color: Colors.white, fontSize: 16, fontWeight: FontWeight.w400);
 
   @override
   Widget build(BuildContext context) {
-    return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [Padding(
-      padding:  const EdgeInsets.fromLTRB(10, 20, 15, 0),
-      child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween,mainAxisSize: MainAxisSize.min,
-        children: [
-          CircleAvatar(radius: 50,child: Image.asset('assets/images/vertex_logo.png',width: 180,),backgroundColor: backgroundColor,),
-          SizedBox(height: 20,),Text('profile',style: text_style,)
-        ],
+    return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+      Padding(
+        padding: const EdgeInsets.fromLTRB(10, 20, 15, 0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CircleAvatar(
+              radius: 50,
+              child: Image.asset(
+                'assets/images/vertex_logo.png',
+                width: 180,
+              ),
+              backgroundColor: backgroundColor,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              'Straxs',
+              style: text_style,
+            )
+          ],
+        ),
       ),
-    ),
       Expanded(
           flex: 4,
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(0, 0, 10, 10),
+            padding: const EdgeInsets.fromLTRB(0, 0, 5, 10),
             child: Column(
               children: [
                 Row(
@@ -119,7 +128,6 @@ class _Follower_BoardState extends State<Follower_Board> {
                     buildStatColumn(74, "FOLLOWING"),
                   ],
                 ),
-              
               ],
             ),
           ))
@@ -147,69 +155,49 @@ class _Follower_BoardState extends State<Follower_Board> {
   }
 }
 
+// funtion to create messaage and unfollow
 
-
-  TextButton follow_button({required  void Function()? onPressed}) {
-    return TextButton(
-        onPressed: () {
-          onPressed;
-        
-        },
-        child: Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4), color: secondary),
-            width: 236,
-            height: 30,
-            child: Center(
-                child: Text(
-              'Follow',
-              style: const TextStyle(color: Colors.white),
-            ))));
-  }
-
-
-Widget messageUnfollow({required bool isFollow,required void Function()? message,required Function() unfollow}) {
-    return Row(
-      children: [
-        TextButton(
-            onPressed: () {message;},
-            style: ButtonStyle(
-              elevation: MaterialStateProperty.all<double>(0),
-              overlayColor: MaterialStateProperty.all<Color>(backgroundColor),
-              splashFactory: InkRipple.splashFactory,
+Row messageUnfollow({void Function()? message, void Function()? unfollow}) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      TextButton(
+        onPressed: message,
+        child: const Text('message',style: txtbtn,),
+        style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(
+              Color.fromARGB(255, 29, 29, 30),
             ),
-            child: Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
-                    color: Color.fromARGB(135, 27, 24, 24)),
-                width: 110,
-                height: 32,
-                child: const Center(
-                  child: Text(
-                    'message',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ))),
-        TextButton(
-            onPressed: () {},
-            style: ButtonStyle(
-              elevation: MaterialStateProperty.all<double>(0),
-              overlayColor: MaterialStateProperty.all<Color>(backgroundColor),
-              splashFactory: InkRipple.splashFactory,
+            minimumSize: MaterialStateProperty.all<Size>(Size(104, 32))),
+      ),
+      SizedBox(width: 24,),
+      TextButton(
+        onPressed: unfollow,
+        child: const Text('unfollow',style: txtbtn,),
+        style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(
+              Color.fromARGB(255, 29, 29, 30),
             ),
-            child: Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
-                    color: Color.fromARGB(135, 27, 24, 24)),
-                width: 110,
-                height: 32,
-                child: Center(
-                  child: const Text(
-                    'unfollow',
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                )))
-      ],
-    );
-  }
+            minimumSize: MaterialStateProperty.all<Size>(Size(104, 32))),
+      ),SizedBox(width: 20,)
+    ],
+  );
+}
 
+//function for follow button
+Row followBtn({void Function()? follow}) {
+  return Row(
+    children: [const SizedBox(width: 12,),
+      TextButton(
+        onPressed: follow,
+        child: const Text(
+          'Follow',
+          style:txtbtn,
+        ),
+        style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(secondary),
+            minimumSize: MaterialStateProperty.all<Size>(const Size(240, 32))),
+      ),
+    ],
+  );
+}

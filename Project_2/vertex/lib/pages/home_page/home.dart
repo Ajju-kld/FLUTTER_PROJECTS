@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vertex/component/component_widgets.dart';
 
-import '../COLORS.dart';
+import '../utils.dart';
 import '../inner_pages/Add_post.dart';
 import '../inner_pages/Search_page.dart';
 import 'home_page.dart';
