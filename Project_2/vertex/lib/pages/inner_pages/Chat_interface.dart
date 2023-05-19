@@ -14,6 +14,7 @@ class Chat_Screen extends StatefulWidget {
 }
 
 class _Chat_ScreenState extends State<Chat_Screen> {
+  final  _chat_message=TextEditingController();
   final List<Message> _messages = [
     Message(text: 'Hello', itsMe: true, dateTime: DateTime(2022, 1, 1, 12, 32)),
     Message(text: 'Hi', itsMe: false, dateTime: DateTime(2022, 1, 1, 12, 32)),
@@ -26,7 +27,12 @@ class _Chat_ScreenState extends State<Chat_Screen> {
         itsMe: false,
         dateTime: DateTime(2022, 1, 2, 10, 12)),
   ];
-
+@override
+  void dispose() {
+    // TODO: implement dispose
+    _chat_message.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,10 +51,10 @@ class _Chat_ScreenState extends State<Chat_Screen> {
                         message.dateTime.month,
                         message.dateTime.day,
                       ),
-                  floatingHeader: true,
+                  floatingHeader: false,
                   reverse: true,
                   order: GroupedListOrder.DESC,
-                  useStickyGroupSeparators: true,
+                  useStickyGroupSeparators: false,
                   groupHeaderBuilder: (Message message) => Center(
                         child: SizedBox(
                           height: 40,
@@ -84,7 +90,8 @@ class _Chat_ScreenState extends State<Chat_Screen> {
                   padding: const EdgeInsets.fromLTRB(10, 2, 0, 0),
                   child: TextField(keyboardType: TextInputType.multiline,
                       minLines: 1,
-                      maxLines: null,
+                      maxLines: 5,
+                   controller: _chat_message,
                    
                       
 style: TextStyle(color: Colors.white,fontSize: 17),
@@ -109,7 +116,19 @@ style: TextStyle(color: Colors.white,fontSize: 17),
                       color: Colors.white,
                     )),
                 IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+if (_chat_message.text.isEmpty) {
+  return ;
+}
+else{
+  setState(() {
+   
+    _messages.add(Message(text: _chat_message.text, itsMe: true, dateTime: DateTime.now()));
+  });
+  _chat_message.clear();
+}
+
+                    },
                     icon: Icon(
                       Icons.send,
                       color: Colors.white,
@@ -133,7 +152,7 @@ class Chat_Bubble extends StatelessWidget {
     return Align(
       alignment: (message.itsMe) ? Alignment.centerLeft : Alignment.centerRight,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(0),
         child: Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
@@ -169,7 +188,7 @@ class Chat_Bubble extends StatelessWidget {
       ),
     );
   }
-}
+} 
 
 class Message {
   final String text;

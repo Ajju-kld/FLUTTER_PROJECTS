@@ -33,7 +33,8 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final email = TextEditingController();
-
+ bool showPass=true;
+ 
   final password = TextEditingController();
   final focus = FocusNode();
   @override
@@ -101,6 +102,14 @@ class _LoginState extends State<Login> {
         });
   }
 
+
+  void  _show_password(){
+setState(() {
+  showPass=false;
+});
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -118,66 +127,77 @@ class _LoginState extends State<Login> {
         ),
         backgroundColor: const Color.fromRGBO(14, 15, 26, 1),
         body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 40, 0, 100),
-                  child: SvgPicture.asset(
-                    'assets/images/LOGIN 1.svg',
-                    width: 200,
-                    height: 300,
-                  ),
-                ), // login picture padding
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
-                  child: textField(
-                      hint: 'Enter the email',
-                      controller: email,
-                      icon: const Icon(
-                        Icons.email_outlined,
-                        color: Colors.white,
-                      )),
-                ), // email field padding
-
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-                  child: textField(hint: 'Enter the Password',controller: password,icon: const Icon(Icons.key_outlined,color: Colors.white,)),
-                ), // password fild padding
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(150, 0, 0, 0),
-                  child: txtBtn(
-                    hint: const Text(
-                      'Forgotten Password ?',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    onPressed: () {},
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 40, 0, 3),
-                  child: Hero(
-                    tag: "Login_btn",
-                    child: btn_(
-                      title: 'LOGIN',
-                      onPressed: () {
-                        focus.unfocus();
-                        login();
-                      },
-                    ),
-                  ),
-                ),
-                txtBtn(
-                    onPressed: () => {
-                          Navigator.pop(context),
-                          Navigator.of(context).push(_createRoute())
+          child: GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            child: SingleChildScrollView(
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 40, 0, 100),
+                      child: SvgPicture.asset(
+                        'assets/images/LOGIN 1.svg',
+                        width: 200,
+                        height: 300,
+                      ),
+                    ), // login picture padding
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
+                      child: textField(
+                          hint: 'Enter the email',
+                          controller: email,
+                          icon: const Icon(
+                            Icons.email_outlined,
+                            color: Colors.white,
+                          )),
+                    ), // email field padding
+              
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+                      child: textField(hint: 'Enter the Password',controller: password,icon: const Icon(Icons.key_outlined,color: Colors.white,),obstrucct: showPass,is_pass:true,
+                        togglePasswordVisibility: (visible) {
+                          setState(() {
+                            showPass = visible;
+                          });
                         },
-                    hint: const Text(
-                      "New User? Register",
-                      style: TextStyle(color: Colors.white),
-                    )), //button padding
-              ],
+                      ),
+                    ), // password fild padding
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(150, 0, 0, 0),
+                      child: txtBtn(
+                        hint: const Text(
+                          'Forgotten Password ?',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        onPressed: () {},
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 40, 0, 3),
+                      child: Hero(
+                        tag: "Login_btn",
+                        child: btn_(
+                          title: 'LOGIN',
+                          onPressed: () {
+                            focus.unfocus();
+                            login();
+                          },
+                        ),
+                      ),
+                    ),
+                    txtBtn(
+                        onPressed: () => {
+                              Navigator.pop(context),
+                              Navigator.of(context).push(_createRoute())
+                            },
+                        hint: const Text(
+                          "New User? Register",
+                          style: TextStyle(color: Colors.white),
+                        )), //button padding
+                  ],
+                ),
+              ),
             ),
           ),
         ),
