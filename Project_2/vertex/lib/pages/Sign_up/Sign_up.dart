@@ -5,7 +5,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:vertex/pages/Login/Login.dart';
 
 import '../utils.dart';
-import '../../component/component_widgets.dart';
+import '../../component/common_widgets.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 

@@ -6,7 +6,8 @@ const Color backgroundColor= Color.fromRGBO(14, 15, 26, 1);
 const Color secondary= Color.fromARGB(255, 8, 176, 156);
 const TextStyle txtbtn=TextStyle(color: Colors.white,fontSize: 16);
 
-
+const TextStyle chat=TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold,);
+const TextStyle chattime=TextStyle(color: Colors.white,fontSize: 12);
 
 String markdown_Data='''- 👋 Hi, I’m @Ajju-kld
 - 👀 I’m interested in WEB DEVELOPMENT and FLUTTER

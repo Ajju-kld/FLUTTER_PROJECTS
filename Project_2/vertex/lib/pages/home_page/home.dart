@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:vertex/component/component_widgets.dart';
+import 'package:vertex/component/common_widgets.dart';
 
 import '../utils.dart';
 import '../inner_pages/Add_post.dart';

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+
 import 'package:grouped_list/grouped_list.dart';
 import 'package:intl/intl.dart';
-import 'package:vertex/component/component_widgets.dart';
+
 import 'package:vertex/pages/utils.dart';
+
+import '../../component/chat_component.dart';
 
 class Chat_Screen extends StatefulWidget {
   const Chat_Screen({super.key});
@@ -16,7 +17,7 @@ class Chat_Screen extends StatefulWidget {
 class _Chat_ScreenState extends State<Chat_Screen> {
   final  _chat_message=TextEditingController();
   final List<Message> _messages = [
-    Message(text: 'Hello', itsMe: true, dateTime: DateTime(2022, 1, 1, 12, 32)),
+    Message(text: 'Helasldkjadlsjlajdljasjdlkajslfjajdjdslkjfajfjaflo', itsMe: true, dateTime: DateTime(2022, 1, 1, 12, 32),reactions: ['👽', '👽']),
     Message(text: 'Hi', itsMe: false, dateTime: DateTime(2022, 1, 1, 12, 32)),
     Message(
         text: 'How are you?',
@@ -41,7 +42,7 @@ class _Chat_ScreenState extends State<Chat_Screen> {
         backgroundColor: backgroundColor,
         title: Text('Chat'),
       ),
-      body: Column(
+      body: Column(mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Expanded(
               child: GroupedListView<Message, DateTime>(
@@ -71,7 +72,7 @@ class _Chat_ScreenState extends State<Chat_Screen> {
                         ),
                       ),
                   itemBuilder: (BuildContext context, Message message) {
-                    return Chat_Bubble(message: message);
+                    return Chat_Bubble(message: message,onLongPress: () {print('longed_pressed');},);
                   })),
           Container(
             height: 
@@ -140,61 +141,4 @@ else{
       ),
     );
   }
-}
-
-class Chat_Bubble extends StatelessWidget {
-  final Message message;
-
-  const Chat_Bubble({super.key, required this.message});
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: (message.itsMe) ? Alignment.centerLeft : Alignment.centerRight,
-      child: Padding(
-        padding: const EdgeInsets.all(0),
-        child: Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: message.itsMe ? Colors.black : secondary,
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(18),
-              bottomRight: Radius.circular(18),
-              topRight: message.itsMe ? Radius.circular(18) : Radius.zero,
-              topLeft: message.itsMe ? Radius.zero : Radius.circular(18),
-            ),
-          ),
-          child: Column(
-            crossAxisAlignment: message.itsMe
-                ? CrossAxisAlignment.start
-                : CrossAxisAlignment.end,
-            children: [
-              Text(message.text,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  )),
-              const SizedBox(
-                height: 4,
-              ),
-              Text(
-                '${message.dateTime.hour}:${message.dateTime.minute}',
-                style: const TextStyle(color: Colors.white, fontSize: 12),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-} 
-
-class Message {
-  final String text;
-  final bool itsMe;
-  final DateTime dateTime;
-
-  const Message(
-      {required this.text, required this.itsMe, required this.dateTime});
 }
