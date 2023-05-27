@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-
 import 'package:grouped_list/grouped_list.dart';
 import 'package:intl/intl.dart';
-
 import 'package:vertex/pages/utils.dart';
-
 import '../../component/chat_component.dart';
+import '../../models/Message.dart';
 
 class Chat_Screen extends StatefulWidget {
   const Chat_Screen({super.key});
@@ -15,9 +13,13 @@ class Chat_Screen extends StatefulWidget {
 }
 
 class _Chat_ScreenState extends State<Chat_Screen> {
-  final  _chat_message=TextEditingController();
+  final _chat_message = TextEditingController();
   final List<Message> _messages = [
-    Message(text: 'Helasldkjadlsjlajdljasjdlkajslfjajdjdslkjfajfjaflo', itsMe: true, dateTime: DateTime(2022, 1, 1, 12, 32),reactions: ['👽', '👽']),
+    Message(
+        text: 'Helasldkjadlsjlajdljasjdlkajslfjajdjdslkjfajfjaflo',
+        itsMe: true,
+        dateTime: DateTime(2022, 1, 1, 12, 32),
+        reactions: ['👽', '👽']),
     Message(text: 'Hi', itsMe: false, dateTime: DateTime(2022, 1, 1, 12, 32)),
     Message(
         text: 'How are you?',
@@ -28,21 +30,23 @@ class _Chat_ScreenState extends State<Chat_Screen> {
         itsMe: false,
         dateTime: DateTime(2022, 1, 2, 10, 12)),
   ];
-@override
+  @override
   void dispose() {
     // TODO: implement dispose
     _chat_message.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: AppBar(
         backgroundColor: backgroundColor,
-        title: Text('Chat'),
+        title:const Text('Chat'),
       ),
-      body: Column(mainAxisAlignment: MainAxisAlignment.start,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Expanded(
               child: GroupedListView<Message, DateTime>(
@@ -72,30 +76,33 @@ class _Chat_ScreenState extends State<Chat_Screen> {
                         ),
                       ),
                   itemBuilder: (BuildContext context, Message message) {
-                    return Chat_Bubble(message: message,onLongPress: () {print('longed_pressed');},);
+                    return Chat_Bubble(
+                      message: message,
+                      onLongPress: () {
+                        print('longed_pressed');
+                      },
+                    );
                   })),
           Container(
-            height: 
-          60,
-            color: Color.fromARGB(255, 0, 0, 0),
+            height: 60,
+            color: const Color.fromARGB(255, 0, 0, 0),
             child: Row(
               children: [
                 IconButton(
                     onPressed: () {},
-                    icon: Icon(
+                    icon:const Icon(
                       Icons.emoji_emotions_outlined,
                       color: Colors.white,
                     )),
                 Expanded(
                     child: Padding(
                   padding: const EdgeInsets.fromLTRB(10, 2, 0, 0),
-                  child: TextField(keyboardType: TextInputType.multiline,
+                  child: TextField(
+                      keyboardType: TextInputType.multiline,
                       minLines: 1,
                       maxLines: 5,
-                   controller: _chat_message,
-                   
-                      
-style: TextStyle(color: Colors.white,fontSize: 17),
+                      controller: _chat_message,
+                      style: const TextStyle(color: Colors.white, fontSize: 17),
                       decoration: InputDecoration(
                           hintText: "type your message",
                           enabledBorder: OutlineInputBorder(
@@ -108,29 +115,29 @@ style: TextStyle(color: Colors.white,fontSize: 17),
                                 const BorderSide(color: secondary, width: 2),
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          hintStyle: TextStyle(color: Colors.white))),
+                          hintStyle: const TextStyle(color: Colors.white))),
                 )),
                 IconButton(
                     onPressed: () {},
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.camera,
                       color: Colors.white,
                     )),
                 IconButton(
                     onPressed: () {
-if (_chat_message.text.isEmpty) {
-  return ;
-}
-else{
-  setState(() {
-   
-    _messages.add(Message(text: _chat_message.text, itsMe: true, dateTime: DateTime.now()));
-  });
-  _chat_message.clear();
-}
-
+                      if (_chat_message.text.isEmpty) {
+                        return;
+                      } else {
+                        setState(() {
+                          _messages.add(Message(
+                              text: _chat_message.text,
+                              itsMe: true,
+                              dateTime: DateTime.now()));
+                        });
+                        _chat_message.clear();
+                      }
                     },
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.send,
                       color: Colors.white,
                     ))
