@@ -1,6 +1,7 @@
 # fingerprint_authentication
 
-A new Flutter project.
+This flutter project gives the idea of using the fingerprint authentication in android uses biometric authentication
+later on in this project. i will add the steps for fingerprint authentication and authentcation in flutter 
 
 ## Getting Started
 
