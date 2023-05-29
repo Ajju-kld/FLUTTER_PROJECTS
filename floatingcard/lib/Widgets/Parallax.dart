@@ -1,6 +1,5 @@
 import 'dart:async';
 
-
 import 'package:drop_shadow/drop_shadow.dart';
 
 import 'package:flutter/material.dart';
@@ -22,7 +21,7 @@ class _ParallexCardState extends State<ParallexCard>
   double prevYAngle = 0;
   double zAngle = 0;
   double prevZAngle = 0;
- 
+
   final streamsub = <StreamSubscription<dynamic>>[];
 
   @override
@@ -60,16 +59,20 @@ class _ParallexCardState extends State<ParallexCard>
                 tween: Tween(begin: prevZAngle, end: zAngle),
                 duration: const Duration(milliseconds: 500),
                 builder: (context, double zValue, _) {
-                  return 
-                    
-                    Transform(
-                        origin: const Offset(150, 150),
-                        transform: Matrix4.identity()
-                          ..setEntry(3, 2, 0.0015)
-                          ..rotateX(-zValue )
-                          ..rotateY(xValue ),
-                        child: Container(child: DropShadow(child: SizedBox(width: 500,height: 800,child: Image.asset('asset/images/card.png')))))
-                  ;
+                  return Transform(
+                      origin: const Offset(150, 150),
+                      transform: Matrix4.identity()
+                        ..setEntry(3, 2, 0.0015)
+                        ..rotateX(-zValue)
+                        ..rotateY(xValue),
+                      child: Container(
+                          child: DropShadow(
+                              spread: 5,
+                              child: SizedBox(
+                                  width: 500,
+                                  height: 800,
+                                  child:
+                                      Image.asset('asset/images/card.png')))));
                 });
           }),
     );
